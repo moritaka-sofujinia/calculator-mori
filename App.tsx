@@ -4,8 +4,6 @@ import { myColors } from './src/styles/Colors';
 import { ThemeContext } from './src/context/ThemeContext';
 import MyKeyboard from './src/components/MyKeyboard';
 
-
-
 export default function App() {
   const [theme, setTheme] = useState('light');
   return (
@@ -14,6 +12,7 @@ export default function App() {
         <Switch
           value={theme === 'dark'}
           onValueChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          style={styles.switch} // Add this line
         />
         <MyKeyboard />
       </SafeAreaView>
@@ -27,5 +26,8 @@ const styles = StyleSheet.create({
     backgroundColor: myColors.light,
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  switch: {
+    marginTop: 20, // Adjust this value as needed
   },
 });
