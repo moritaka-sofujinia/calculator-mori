@@ -1,6 +1,6 @@
 import * as React from "react";
+import { View, Text, Alert } from "react-native";
 import Button from "./Button";
-import { View, Text } from "react-native";
 import { Styles } from "../styles/GlobalStyles";
 import { myColors } from "../styles/Colors";
 
@@ -9,6 +9,7 @@ export default function MyKeyboard() {
   const [result, setResult] = React.useState<string | null>(null);
   const [openBrackets, setOpenBrackets] = React.useState(0);  // Theo dõi số lượng ngoặc mở
   const [isResultDisplayed, setIsResultDisplayed] = React.useState(false);  // Theo dõi trạng thái sau khi hiển thị kết quả
+  const [equalsPressCount, setEqualsPressCount] = React.useState(0);  // Đếm số lần bấm "="
 
   // Hàm xử lý nhập số hoặc toán tử
   const handlePress = (buttonValue: string) => {
@@ -86,6 +87,15 @@ export default function MyKeyboard() {
 
         setResult(resultString);
         setIsResultDisplayed(true); // Đặt isResultDisplayed thành false sau khi tính toán
+
+        // Cập nhật số lần bấm "=" và kiểm tra điều kiện
+        setEqualsPressCount(prevCount => {
+          const newCount = prevCount + 1;
+          if (newCount % 5 === 0) {
+            Alert.alert("Thông báo", "Cám ơn đã dùng sp của Nguyễn Duy Dũng. Bấm Ok để tiếp tục");
+          }
+          return newCount;
+        });
       } else {
         setResult("Error");
       }
